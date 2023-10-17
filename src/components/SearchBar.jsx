@@ -23,7 +23,11 @@ const SearchBar = () => {
         value=""
         onChange={() => {}}
       />
-      <IconButton type="submit" sx={{ p: "10px", color: "red" }}>
+      <IconButton
+        type="submit"
+        sx={{ p: "10px", color: "red" }}
+        aria-label="search"
+      >
         <Search />
       </IconButton>
     </Paper>
