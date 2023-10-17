@@ -1,8 +1,22 @@
 import { Box, Stack, Typography } from "@mui/material";
 import React from "react";
-import SideBar from "./SideBar";
+import { Videos, SideBar } from ".";
+
+import { useEffect, useState } from "react";
+import { fetchFromAPI } from "../utils/fetchFromAPI";
 
 const Feed = () => {
+  const [selectedCategory, setSelectedCategory] = useState("New");
+  const [videos, setVideos] = useState(null);
+
+  useEffect(() => {
+    setVideos(null);
+
+    fetchFromAPI(`search?part=snippet&q=${selectedCategory}`).then((data) =>
+      setVideos(data.items)
+    );
+  }, [selectedCategory]);
+
   return (
     <Stack sx={{ flexDirection: { sm: "column", md: "row" } }}>
       <Box
@@ -12,7 +26,10 @@ const Feed = () => {
           px: { sx: 0, md: 2 }
         }}
       >
-        <SideBar />
+        <SideBar
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
         <Typography
           variant="body2"
           className="copyright"
@@ -20,6 +37,18 @@ const Feed = () => {
         >
           CopyRight 2022
         </Typography>
+      </Box>
+      <Box p={2} sx={{ overflowY: "auto", height: "90hv", flex: "2" }}>
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          mb={2}
+          sx={{ color: "white" }}
+        >
+          {selectedCategory}
+          <span style={{ color: "#f31503" }}>Video</span>
+        </Typography>
+        <Videos videos={videos} />
       </Box>
     </Stack>
   );
