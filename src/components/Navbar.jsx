@@ -2,7 +2,7 @@ import React from "react";
 import { Stack } from "@mui/material";
 import { Link } from "react-router-dom";
 import { logo } from "../utils/constants";
-import SearchBar from "./SearchBar";
+import { SearchBar } from "./";
 const Navbar = () => (
   <Stack
     direction="row"
@@ -11,7 +11,7 @@ const Navbar = () => (
     sx={{
       position: "sticky",
       background: "#000",
-      top: "0",
+      top: 0,
       justifyContent: "space-between"
     }}
   >
