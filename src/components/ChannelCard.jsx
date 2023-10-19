@@ -1,11 +1,23 @@
 import React from "react";
 import { Box, CardContent, CardMedia, Typography } from "@mui/material";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CheckCircle from "@mui/icons-material/CheckCircle";
 import { Link } from "react-router-dom";
 import { demoProfilePicture } from "../utils/constants";
+
 const ChannelCard = ({ channelDetail }) => (
-  <Box sx={{ boxShodow: "none", borderRadius: "20px" }}>
-    <Link to={`/channel${channelDetail?.id?.channelId}`}>
+  <Box
+    sx={{
+      boxShadow: "none",
+      borderRadius: "20px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      width: { sx: "365", md: "300px" },
+      height: "326px",
+      margin: "auto"
+    }}
+  >
+    <Link to={`/channel/${channelDetail?.id?.channelId}`}>
       <CardContent
         sx={{
           display: "flex",
@@ -17,24 +29,29 @@ const ChannelCard = ({ channelDetail }) => (
       >
         <CardMedia
           image={
-            channelDetail?.snippet?.thumBnails?.hight?.url || demoProfilePicture
+            channelDetail?.snippet?.thumbnails?.high?.url || demoProfilePicture
           }
           alt={channelDetail?.snippet?.title}
           sx={{
             borderRadius: "50%",
-            height: "190px",
+            height: "180px",
             width: "180px",
             mb: 2,
             border: "1px solid #e3e3e3 "
           }}
-        >
+        />
+        <Typography variant="h6">
+          {channelDetail?.snippet?.title}
+          <CheckCircle sx={{ fontSize: "14", color: "gray", ml: "5px" }} />
+        </Typography>
+        {channelDetail?.statistics?.subscriberCount && (
           <Typography>
-            {channelDetail?.snippet?.title}
-            <CheckCircleIcon
-              sx={{ fontSize: "14", color: "gray", ml: "5px" }}
-            />
+            {parseInt(
+              channelDetail?.statistics?.subscriberCount
+            ).toLocaleString()}
+            subscribers
           </Typography>
-        </CardMedia>
+        )}
       </CardContent>
     </Link>
   </Box>
